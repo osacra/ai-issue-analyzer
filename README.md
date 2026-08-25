@@ -16,7 +16,7 @@ A aplicação permite criar, listar, consultar e excluir issues. Cada issue pode
 | --------------- | ------------------------------------------- |
 | Frontend        | React, TypeScript, Vite, Tailwind CSS       |
 | Backend         | Node.js, Express, tRPC                      |
-| Persistência    | MySQL compatível com Drizzle ORM            |
+| Persistência    | MySQL/TiDB compatível com Drizzle ORM       |
 | IA              | Google Gemini API via `GeminiProvider`      |
 | Qualidade       | TypeScript strict, ESLint, Prettier, Vitest |
 | Desenvolvimento | Docker Compose                              |
@@ -56,7 +56,7 @@ DATABASE_URL=mysql://app:app@127.0.0.1:3306/ai_issue_analyzer
 WORKSPACE_USER_ID=1
 ```
 
-O projeto já pode ser validado usando o banco conectado ao ambiente de desenvolvimento. Para uma execução local independente, suba uma instância compatível e execute:
+O projeto já pode ser validado usando o banco conectado ao ambiente de desenvolvimento. Por decisão aprovada para esta versão, a persistência permanece em MySQL/TiDB compatível com o ambiente conectado; não é necessária uma migração para PostgreSQL para executar a entrega atual. Para uma execução local independente, suba uma instância compatível e execute:
 
 ```bash
 docker compose up -d
@@ -95,7 +95,7 @@ Os testes cobrem o contrato estruturado de análise, rejeição de respostas inv
 
 A integração com o provedor foi mantida em `server/ai.ts`, evitando chamadas de IA nos componentes de interface ou diretamente na lógica de apresentação. A resposta é validada novamente no backend, mesmo usando schema no pedido ao modelo, porque entradas externas nunca devem ser consideradas confiáveis por padrão.
 
-O workspace utiliza um identificador local configurável por `WORKSPACE_USER_ID`, o que mantém o escopo focado no produto de gestão de issues sem adicionar autenticação ao protótipo de portfólio. Timestamps são gerenciados pelo banco e o histórico não é sobrescrito quando uma nova análise é executada.
+O workspace utiliza um identificador local configurável por `WORKSPACE_USER_ID`, o que mantém o escopo focado no produto de gestão de issues sem adicionar autenticação ao protótipo de portfólio. A escolha de MySQL/TiDB nesta versão foi aprovada para preservar compatibilidade com o banco conectado; PostgreSQL fica como evolução futura, não como requisito da execução atual. Timestamps são gerenciados pelo banco e o histórico não é sobrescrito quando uma nova análise é executada.
 
 ## Melhorias futuras
 

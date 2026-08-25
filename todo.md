@@ -1,0 +1,31 @@
+# Project TODO
+
+- [x] Auditar o scaffold, estado do Git e configurações existentes sem destruir código.
+- [x] Configurar identidade Git local como Arthur Sacramento <oarthursacra@gmail.com>.
+- [x] Criar e documentar Issues incrementais no GitHub antes das implementações.
+- [ ] Configurar fundação React/TypeScript/Express, lint, Prettier e documentação inicial.
+- [ ] Modelar tabelas de issues e análises com Drizzle e aplicar migrations no banco.
+- [ ] Adicionar ambiente PostgreSQL local via Docker Compose e variáveis protegidas.
+- [ ] Implementar procedimentos/API validados para criar, listar, consultar e excluir issues.
+- [ ] Implementar a abstração AIProvider e GeminiProvider somente no backend.
+- [ ] Validar resposta estruturada da IA e tratar indisponibilidade ou resposta inválida.
+- [ ] Persistir análises vinculadas às issues e recuperar o histórico.
+- [ ] Construir Dashboard responsivo com estados de carregamento, vazio, erro e feedback.
+- [ ] Construir formulário de criação de issue com validação e feedback.
+- [ ] Construir tela de detalhes com ação de análise e visualização do histórico.
+- [ ] Adicionar testes unitários e de integração para issues, análises, mocks e falhas do provedor.
+- [ ] Executar typecheck, lint, formatação, testes e build; corrigir todos os problemas encontrados.
+- [ ] Completar README com setup, ambiente, arquitetura, API, decisões e testes.
+- [ ] Revisar segurança, .gitignore, .env.example e referências indevidas a ferramentas de desenvolvimento.
+- [ ] Criar branches, commits Conventional Commits, Pull Requests, revisões e merges por etapa.
+- [ ] Validar a interface visualmente em desktop e mobile.
+- [ ] Salvar o checkpoint final do projeto e entregar o resumo com a versão disponibilizada.
+
+- [x] Corrigir a dependência técnica do gateway e runtime proprietários, tornando a execução independente.
+- [x] Implementar GeminiProvider com chamada direta à Google Gemini API pelo backend.
+- [x] Tornar GEMINI_API_KEY obrigatória para o recurso de análise em instalações externas.
+- [ ] Criar/atualizar .env.example com GEMINI_API_KEY e DATABASE_URL sem valores reais.
+- [x] Atualizar README para execução local comum em Windows, Linux e macOS, sem plataforma proprietária.
+- [x] Auditar referências a Manus, gateway, runtime e autoria indevida em código, configuração, documentação e histórico novo.
+- [ ] Criar commit separado e Pull Request para a correção de independência antes de retomar novas Issues.
+- [x] Reescrever o commit inicial autorizado para Arthur Sacramento <sacrarthur06@gmail.com> e atualizar a referência remota.

@@ -13,7 +13,9 @@ export const issueAnalysisSchema = z.object({
 
 export type IssueInput = { title: string; description: string };
 export type IssueAnalysis = z.infer<typeof issueAnalysisSchema>;
-export interface AIProvider { analyzeIssue(input: IssueInput): Promise<IssueAnalysis>; }
+export interface AIProvider {
+  analyzeIssue(input: IssueInput): Promise<IssueAnalysis>;
+}
 
 const responseSchema = {
   type: "OBJECT",
@@ -27,7 +29,16 @@ const responseSchema = {
     suggestedSolution: { type: "STRING" },
     suggestedTests: { type: "ARRAY", items: { type: "STRING" } },
   },
-  required: ["category", "priority", "severity", "area", "summary", "possibleCause", "suggestedSolution", "suggestedTests"],
+  required: [
+    "category",
+    "priority",
+    "severity",
+    "area",
+    "summary",
+    "possibleCause",
+    "suggestedSolution",
+    "suggestedTests",
+  ],
 };
 
 export class GeminiProvider implements AIProvider {
@@ -41,13 +52,36 @@ export class GeminiProvider implements AIProvider {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        systemInstruction: { parts: [{ text: "Você é um analista sênior de software. Responda em português do Brasil com recomendações objetivas." }] },
-        contents: [{ role: "user", parts: [{ text: `Analise esta issue e retorne somente o JSON solicitado.\nTítulo: ${input.title}\nDescrição: ${input.description}` }] }],
-        generationConfig: { responseMimeType: "application/json", responseSchema },
+        systemInstruction: {
+          parts: [
+            {
+              text: "Você é um analista sênior de software. Responda em português do Brasil com recomendações objetivas.",
+            },
+          ],
+        },
+        contents: [
+          {
+            role: "user",
+            parts: [
+              {
+                text: `Analise esta issue e retorne somente o JSON solicitado.\nTítulo: ${input.title}\nDescrição: ${input.description}`,
+              },
+            ],
+          },
+        ],
+        generationConfig: {
+          responseMimeType: "application/json",
+          responseSchema,
+        },
       }),
     });
-    if (!response.ok) throw new Error(`Gemini API request failed with status ${response.status}`);
-    const payload = await response.json() as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
+    if (!response.ok)
+      throw new Error(
+        `Gemini API request failed with status ${response.status}`
+      );
+    const payload = (await response.json()) as {
+      candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+    };
     const text = payload.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!text) throw new Error("Gemini API returned an empty response");
     return issueAnalysisSchema.parse(JSON.parse(text));

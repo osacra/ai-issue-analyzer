@@ -1,6 +1,13 @@
 import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { analyses, InsertAnalysis, InsertIssue, InsertUser, issues, users } from "../drizzle/schema";
+import {
+  analyses,
+  InsertAnalysis,
+  InsertIssue,
+  InsertUser,
+  issues,
+  users,
+} from "../drizzle/schema";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -34,13 +41,20 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     values.role = user.role;
     updateSet.role = user.role;
   }
-  await db.insert(users).values(values).onDuplicateKeyUpdate({ set: updateSet });
+  await db
+    .insert(users)
+    .values(values)
+    .onDuplicateKeyUpdate({ set: updateSet });
 }
 
 export async function getUserByOpenId(openId: string) {
   const db = await getDb();
   if (!db) return undefined;
-  const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
+  const result = await db
+    .select()
+    .from(users)
+    .where(eq(users.openId, openId))
+    .limit(1);
   return result[0];
 }
 
@@ -54,13 +68,21 @@ export async function createIssue(input: InsertIssue) {
 export async function listIssues(userId: number) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  return db.select().from(issues).where(eq(issues.userId, userId)).orderBy(desc(issues.createdAt));
+  return db
+    .select()
+    .from(issues)
+    .where(eq(issues.userId, userId))
+    .orderBy(desc(issues.createdAt));
 }
 
 export async function getIssueById(id: number, userId: number) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  const result = await db.select().from(issues).where(eq(issues.id, id)).limit(1);
+  const result = await db
+    .select()
+    .from(issues)
+    .where(eq(issues.id, id))
+    .limit(1);
   const issue = result[0];
   return issue?.userId === userId ? issue : undefined;
 }
@@ -78,14 +100,26 @@ export async function deleteIssue(id: number, userId: number) {
 export async function listAnalyses(issueId: number) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  return db.select().from(analyses).where(eq(analyses.issueId, issueId)).orderBy(desc(analyses.createdAt));
+  return db
+    .select()
+    .from(analyses)
+    .where(eq(analyses.issueId, issueId))
+    .orderBy(desc(analyses.createdAt));
 }
 
 export async function createAnalysis(input: InsertAnalysis) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await db.insert(analyses).values(input);
-  await db.update(issues).set({ status: "analyzed" }).where(eq(issues.id, input.issueId));
-  const result = await db.select().from(analyses).where(eq(analyses.issueId, input.issueId)).orderBy(desc(analyses.createdAt)).limit(1);
+  await db
+    .update(issues)
+    .set({ status: "analyzed" })
+    .where(eq(issues.id, input.issueId));
+  const result = await db
+    .select()
+    .from(analyses)
+    .where(eq(analyses.issueId, input.issueId))
+    .orderBy(desc(analyses.createdAt))
+    .limit(1);
   return result[0];
 }

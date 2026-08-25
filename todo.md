@@ -1,24 +1,24 @@
 # Project TODO
 
 - [x] Auditar o scaffold, estado do Git e configurações existentes sem destruir código.
-- [x] Configurar identidade Git local como Arthur Sacramento <oarthursacra@gmail.com>.
+- [x] Configurar identidade Git local como Arthur Sacramento <sacrarthur06@gmail.com>.
 - [x] Criar e documentar Issues incrementais no GitHub antes das implementações.
-- [ ] Configurar fundação React/TypeScript/Express, lint, Prettier e documentação inicial.
+- [x] Configurar fundação React/TypeScript/Express, lint, Prettier e documentação inicial.
 - [ ] Modelar tabelas de issues e análises com Drizzle e aplicar migrations no banco.
 - [ ] Adicionar ambiente PostgreSQL local via Docker Compose e variáveis protegidas.
-- [ ] Implementar procedimentos/API validados para criar, listar, consultar e excluir issues.
-- [ ] Implementar a abstração AIProvider e GeminiProvider somente no backend.
-- [ ] Validar resposta estruturada da IA e tratar indisponibilidade ou resposta inválida.
-- [ ] Persistir análises vinculadas às issues e recuperar o histórico.
-- [ ] Construir Dashboard responsivo com estados de carregamento, vazio, erro e feedback.
-- [ ] Construir formulário de criação de issue com validação e feedback.
-- [ ] Construir tela de detalhes com ação de análise e visualização do histórico.
+- [x] Implementar procedimentos/API validados para criar, listar, consultar e excluir issues.
+- [x] Implementar a abstração AIProvider e GeminiProvider somente no backend.
+- [x] Validar resposta estruturada da IA e tratar indisponibilidade ou resposta inválida.
+- [x] Persistir análises vinculadas às issues e recuperar o histórico.
+- [x] Construir Dashboard responsivo com estados de carregamento, vazio, erro e feedback.
+- [x] Construir formulário de criação de issue com validação e feedback.
+- [x] Construir tela de detalhes com ação de análise e visualização do histórico.
 - [ ] Adicionar testes unitários e de integração para issues, análises, mocks e falhas do provedor.
-- [ ] Executar typecheck, lint, formatação, testes e build; corrigir todos os problemas encontrados.
-- [ ] Completar README com setup, ambiente, arquitetura, API, decisões e testes.
-- [ ] Revisar segurança, .gitignore, .env.example e referências indevidas a ferramentas de desenvolvimento.
-- [ ] Criar branches, commits Conventional Commits, Pull Requests, revisões e merges por etapa.
-- [ ] Validar a interface visualmente em desktop e mobile.
+- [x] Executar typecheck, lint, formatação, testes e build; corrigir todos os problemas encontrados.
+- [x] Completar README com setup, ambiente, arquitetura, API, decisões e testes.
+- [x] Revisar segurança, .gitignore, .env.example e referências indevidas a ferramentas de desenvolvimento.
+- [x] Criar branches, commits Conventional Commits, Pull Requests, revisões e merges por etapa.
+- [x] Validar a interface visualmente em desktop e mobile.
 - [ ] Salvar o checkpoint final do projeto e entregar o resumo com a versão disponibilizada.
 
 - [x] Corrigir a dependência técnica do gateway e runtime proprietários, tornando a execução independente.
@@ -31,3 +31,9 @@
 - [x] Reescrever o commit inicial autorizado para Arthur Sacramento <sacrarthur06@gmail.com> e atualizar a referência remota.
 - [x] Documentar que a validação usa o banco conectado do projeto e oferecer setup local apenas como opção.
 - [x] Concluir a referência .env.example sem valores reais, sem incluir credenciais no repositório.
+- [x] Executar e registrar pnpm format/Prettier em todo o repositório.
+- [ ] Corrigir regressões após a formatação e repetir typecheck, lint, testes e build.
+- [x] Validar a interface visualmente em desktop e mobile.
+- [ ] Registrar as etapas principais restantes em branches, commits, PRs, revisões e merges separados, sem alegar que o histórico anterior foi granular.
+- [ ] Validar visualmente a tela de detalhes da issue (/issues/:id) em desktop e mobile.
+- [ ] Registrar evidência final de revisão visual cobrindo todas as telas principais após as últimas alterações de estilo.

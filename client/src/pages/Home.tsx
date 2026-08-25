@@ -1,33 +1,15 @@
-import { useAuth } from "@/_core/hooks/useAuth";
+import { Link } from "wouter";
+import { AlertCircle, ArrowUpRight, Bug, Loader2, Plus, Sparkles, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Workflow, Frontend Best Practices, Design Guide and Common Pitfalls
- */
 export default function Home() {
-  // The useAuth hook provides authentication state.
-  // To implement login/logout, call logout(), or start login from an event
-  // handler: onClick={() => startLogin()} (imported from "@/const"). Never call
-  // startLogin() during render (no href={startLogin()}) — it mints a one-time
-  // nonce cookie and must run only at the moment of navigation.
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
-
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
-
-  return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
-    </div>
-  );
+  const utils = trpc.useUtils();
+  const issues = trpc.issues.list.useQuery();
+  const remove = trpc.issues.delete.useMutation({ onSuccess: () => { toast.success("Issue removida"); utils.issues.list.invalidate(); }, onError: (error) => toast.error(error.message) });
+  const analyzed = issues.data?.filter((issue) => issue.status === "analyzed").length ?? 0;
+  return <div className="app-shell"><header className="topbar"><Link href="/"><div className="brand"><span className="brand-icon"><Bug size={17} /></span><span>issue<span className="brand-accent">lens</span></span></div></Link><Link href="/new"><Button size="sm"><Plus size={16} /> Nova issue</Button></Link></header><main className="container page-space"><section className="page-heading"><div><p className="eyebrow">WORKSPACE / OVERVIEW</p><h1>Seu backlog, com clareza.</h1><p className="muted">Registre problemas, entenda causas e transforme contexto em próximos passos.</p></div></section><div className="stats-grid"><Card><CardContent><span className="stat-label">Total de issues</span><strong>{issues.data?.length ?? 0}</strong><span className="stat-note">no workspace</span></CardContent></Card><Card><CardContent><span className="stat-label">Analisadas</span><strong>{analyzed}</strong><span className="stat-note">com contexto de IA</span></CardContent></Card><Card><CardContent><span className="stat-label">Aguardando análise</span><strong>{(issues.data?.length ?? 0) - analyzed}</strong><span className="stat-note">prontas para investigar</span></CardContent></Card></div><section><div className="section-heading"><div><p className="eyebrow">BACKLOG</p><h2>Issues recentes</h2></div>{issues.data?.length ? <span className="muted small">{issues.data.length} registros</span> : null}</div>{issues.isLoading ? <div className="empty-state"><Loader2 className="animate-spin" /></div> : issues.isError ? <div className="error-state"><AlertCircle size={18} /> Não foi possível carregar as issues.</div> : !issues.data?.length ? <div className="empty-state"><Sparkles size={25} /><h3>Seu backlog está limpo</h3><p>Registre a primeira issue para iniciar uma análise.</p><Link href="/new"><Button variant="outline">Criar primeira issue <ArrowUpRight size={15} /></Button></Link></div> : <div className="issue-list">{issues.data.map((issue) => <Card key={issue.id} className="issue-row"><CardContent><div className="issue-main"><span className="issue-number">#{String(issue.id).padStart(3, "0")}</span><Link href={`/issues/${issue.id}`}><h3>{issue.title}</h3></Link><p>{issue.description}</p></div><div className="issue-meta"><Badge className={issue.status === "analyzed" ? "status-analyzed" : "status-open"}>{issue.status === "analyzed" ? "Analisada" : "Aberta"}</Badge><button className="icon-button" onClick={() => remove.mutate({ id: issue.id })} aria-label="Excluir issue"><Trash2 size={16} /></button></div></CardContent></Card>)}</div>}</section></main></div>;
 }

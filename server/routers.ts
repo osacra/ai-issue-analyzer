@@ -1,28 +1,37 @@
-import { COOKIE_NAME } from "@shared/const";
-import { getSessionCookieOptions } from "./_core/cookies";
-import { systemRouter } from "./_core/systemRouter";
+import { TRPCError } from "@trpc/server";
+import { z } from "zod";
+import { aiProvider, issueAnalysisSchema } from "./ai";
+import { createAnalysis, createIssue, deleteIssue, getIssueById, listAnalyses, listIssues } from "./db";
 import { publicProcedure, router } from "./_core/trpc";
 
+const issueInput = z.object({ title: z.string().trim().min(3).max(160), description: z.string().trim().min(10).max(10000) });
+const workspaceUserId = Number(process.env.WORKSPACE_USER_ID ?? 1);
+
 export const appRouter = router({
-    // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
-  system: systemRouter,
-  auth: router({
-    me: publicProcedure.query(opts => opts.ctx.user),
-    logout: publicProcedure.mutation(({ ctx }) => {
-      const cookieOptions = getSessionCookieOptions(ctx.req);
-      ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
-      return {
-        success: true,
-      } as const;
+  issues: router({
+    list: publicProcedure.query(() => listIssues(workspaceUserId)),
+    get: publicProcedure.input(z.object({ id: z.number().int().positive() })).query(async ({ input }) => {
+      const issue = await getIssueById(input.id, workspaceUserId);
+      if (!issue) throw new TRPCError({ code: "NOT_FOUND", message: "Issue não encontrada." });
+      return { issue, analysis: await listAnalyses(issue.id) };
+    }),
+    create: publicProcedure.input(issueInput).mutation(({ input }) => createIssue({ ...input, userId: workspaceUserId })),
+    delete: publicProcedure.input(z.object({ id: z.number().int().positive() })).mutation(async ({ input }) => {
+      if (!(await deleteIssue(input.id, workspaceUserId))) throw new TRPCError({ code: "NOT_FOUND", message: "Issue não encontrada." });
+      return { success: true } as const;
+    }),
+    analyze: publicProcedure.input(z.object({ id: z.number().int().positive() })).mutation(async ({ input }) => {
+      const issue = await getIssueById(input.id, workspaceUserId);
+      if (!issue) throw new TRPCError({ code: "NOT_FOUND", message: "Issue não encontrada." });
+      try {
+        const result = issueAnalysisSchema.parse(await aiProvider.analyzeIssue(issue));
+        return createAnalysis({ ...result, issueId: issue.id, suggestedTests: JSON.stringify(result.suggestedTests) });
+      } catch (error) {
+        console.error("[AI] Analysis failed", error);
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Não foi possível analisar a issue agora." });
+      }
     }),
   }),
-
-  // TODO: add feature routers here, e.g.
-  // todo: router({
-  //   list: protectedProcedure.query(({ ctx }) =>
-  //     db.getUserTodos(ctx.user.id)
-  //   ),
-  // }),
 });
 
 export type AppRouter = typeof appRouter;

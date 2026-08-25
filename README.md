@@ -56,7 +56,7 @@ DATABASE_URL=mysql://app:app@127.0.0.1:3306/ai_issue_analyzer
 WORKSPACE_USER_ID=1
 ```
 
-Suba o banco e execute a aplicação:
+O projeto já pode ser validado usando o banco conectado ao ambiente de desenvolvimento. Para uma execução local independente, suba uma instância compatível e execute:
 
 ```bash
 docker compose up -d
@@ -64,7 +64,7 @@ pnpm drizzle-kit migrate
 pnpm dev
 ```
 
-A interface ficará disponível no endereço local informado pelo servidor. Para uma instalação externa, somente `GEMINI_API_KEY` e `DATABASE_URL` são necessários para o recurso principal.
+A interface ficará disponível no endereço local informado pelo servidor. Em uma instalação externa, configure `GEMINI_API_KEY` e `DATABASE_URL`; o banco conectado do ambiente não é necessário para quem executar o projeto localmente.
 
 ## API
 

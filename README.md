@@ -101,6 +101,10 @@ O workspace utiliza um identificador local configurável por `WORKSPACE_USER_ID`
 
 Entre as extensões naturais estão autenticação própria, múltiplos workspaces, filtros por prioridade, edição de issues, exportação de análises e suporte a providers adicionais que implementem `AIProvider`.
 
+## Organização do repositório
+
+O repositório mantém somente a branch remota `main` como linha de integração. As branches de trabalho já integradas foram removidas após o merge, preservando seus commits no histórico. A PR #13 foi fechada como obsoleta porque o mesmo escopo foi reaplicado e integrado pela PR #14. As Issues #1–#7 foram encerradas após a implementação correspondente; a Issue #8 registra a remoção das dependências proprietárias. No estado atual, não há Pull Requests nem Issues abertas.
+
 ## Autoria
 
 Arthur Sacramento

@@ -24,8 +24,10 @@
 - [x] Corrigir a dependência técnica do gateway e runtime proprietários, tornando a execução independente.
 - [x] Implementar GeminiProvider com chamada direta à Google Gemini API pelo backend.
 - [x] Tornar GEMINI_API_KEY obrigatória para o recurso de análise em instalações externas.
-- [ ] Criar/atualizar .env.example com GEMINI_API_KEY e DATABASE_URL sem valores reais.
+- [x] Criar/atualizar .env.example com GEMINI_API_KEY e DATABASE_URL sem valores reais.
 - [x] Atualizar README para execução local comum em Windows, Linux e macOS, sem plataforma proprietária.
-- [x] Auditar referências a Manus, gateway, runtime e autoria indevida em código, configuração, documentação e histórico novo.
-- [ ] Criar commit separado e Pull Request para a correção de independência antes de retomar novas Issues.
+- [x] Auditar referências a provedores proprietários, runtime e autoria indevida em código, configuração, documentação e histórico novo.
+- [x] Criar commit separado e Pull Request para a correção de independência antes de retomar novas Issues.
 - [x] Reescrever o commit inicial autorizado para Arthur Sacramento <sacrarthur06@gmail.com> e atualizar a referência remota.
+- [x] Documentar que a validação usa o banco conectado do projeto e oferecer setup local apenas como opção.
+- [x] Concluir a referência .env.example sem valores reais, sem incluir credenciais no repositório.

@@ -1,39 +1,16 @@
 # Project TODO
 
-- [x] Auditar o scaffold, estado do Git e configurações existentes sem destruir código.
-- [x] Configurar identidade Git local como Arthur Sacramento <sacrarthur06@gmail.com>.
-- [x] Criar e documentar Issues incrementais no GitHub antes das implementações.
-- [x] Configurar fundação React/TypeScript/Express, lint, Prettier e documentação inicial.
-- [ ] Modelar tabelas de issues e análises com Drizzle e aplicar migrations no banco.
-- [ ] Adicionar ambiente PostgreSQL local via Docker Compose e variáveis protegidas.
-- [x] Implementar procedimentos/API validados para criar, listar, consultar e excluir issues.
-- [x] Implementar a abstração AIProvider e GeminiProvider somente no backend.
-- [x] Validar resposta estruturada da IA e tratar indisponibilidade ou resposta inválida.
-- [x] Persistir análises vinculadas às issues e recuperar o histórico.
-- [x] Construir Dashboard responsivo com estados de carregamento, vazio, erro e feedback.
-- [x] Construir formulário de criação de issue com validação e feedback.
-- [x] Construir tela de detalhes com ação de análise e visualização do histórico.
-- [ ] Adicionar testes unitários e de integração para issues, análises, mocks e falhas do provedor.
-- [x] Executar typecheck, lint, formatação, testes e build; corrigir todos os problemas encontrados.
-- [x] Completar README com setup, ambiente, arquitetura, API, decisões e testes.
-- [x] Revisar segurança, .gitignore, .env.example e referências indevidas a ferramentas de desenvolvimento.
-- [x] Criar branches, commits Conventional Commits, Pull Requests, revisões e merges por etapa.
-- [x] Validar a interface visualmente em desktop e mobile.
-- [ ] Salvar o checkpoint final do projeto e entregar o resumo com a versão disponibilizada.
-
-- [x] Corrigir a dependência técnica do gateway e runtime proprietários, tornando a execução independente.
-- [x] Implementar GeminiProvider com chamada direta à Google Gemini API pelo backend.
-- [x] Tornar GEMINI_API_KEY obrigatória para o recurso de análise em instalações externas.
-- [x] Criar/atualizar .env.example com GEMINI_API_KEY e DATABASE_URL sem valores reais.
-- [x] Atualizar README para execução local comum em Windows, Linux e macOS, sem plataforma proprietária.
-- [x] Auditar referências a provedores proprietários, runtime e autoria indevida em código, configuração, documentação e histórico novo.
-- [x] Criar commit separado e Pull Request para a correção de independência antes de retomar novas Issues.
-- [x] Reescrever o commit inicial autorizado para Arthur Sacramento <sacrarthur06@gmail.com> e atualizar a referência remota.
-- [x] Documentar que a validação usa o banco conectado do projeto e oferecer setup local apenas como opção.
-- [x] Concluir a referência .env.example sem valores reais, sem incluir credenciais no repositório.
-- [x] Executar e registrar pnpm format/Prettier em todo o repositório.
-- [ ] Corrigir regressões após a formatação e repetir typecheck, lint, testes e build.
-- [x] Validar a interface visualmente em desktop e mobile.
-- [ ] Registrar as etapas principais restantes em branches, commits, PRs, revisões e merges separados, sem alegar que o histórico anterior foi granular.
-- [ ] Validar visualmente a tela de detalhes da issue (/issues/:id) em desktop e mobile.
-- [ ] Registrar evidência final de revisão visual cobrindo todas as telas principais após as últimas alterações de estilo.
+- [x] Auditar scaffold e configurar autoria Git de Arthur Sacramento <sacrarthur06@gmail.com>.
+- [x] Criar Issues incrementais no GitHub e branches de trabalho.
+- [x] Configurar React, TypeScript, Express, tRPC, lint, Prettier e documentação inicial.
+- [ ] Migrar o adaptador de persistência local para PostgreSQL nativo; o ambiente conectado atual permanece MySQL compatível.
+- [x] Modelar e migrar issues e análises no banco conectado.
+- [x] Implementar CRUD validado e análise persistida com histórico.
+- [x] Implementar AIProvider/GeminiProvider server-side com validação Zod.
+- [x] Construir dashboard, criação e detalhes responsivos com estados de UI.
+- [x] Adicionar testes unitários e de router com mocks para validação, falhas, sucesso de análise e histórico.
+- [x] Executar Prettier, typecheck, lint, testes, build e smoke test HTTP.
+- [x] Revisar segurança, .env.example, README e referências proprietárias.
+- [x] Validar visualmente dashboard, criação e detalhes em desktop e mobile.
+- [x] Registrar correções em branches, commits, PRs e merges separados quando aplicável.
+- [ ] Salvar o checkpoint final e entregar o resumo do estado validado.

@@ -7,6 +7,11 @@ export default [
     files: ["**/*.ts", "**/*.tsx"],
     languageOptions: { parser },
     plugins: { "@typescript-eslint": tseslint },
-    rules: { "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }] },
+    rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_" },
+      ],
+    },
   },
 ];

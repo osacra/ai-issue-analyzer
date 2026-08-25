@@ -12,14 +12,14 @@ A aplicação permite criar, listar, consultar e excluir issues. Cada issue pode
 
 ## Stack
 
-| Camada | Tecnologia |
-|---|---|
-| Frontend | React, TypeScript, Vite, Tailwind CSS |
-| Backend | Node.js, Express, tRPC |
-| Persistência | MySQL compatível com Drizzle ORM |
-| IA | Google Gemini API via `GeminiProvider` |
-| Qualidade | TypeScript strict, ESLint, Prettier, Vitest |
-| Desenvolvimento | Docker Compose |
+| Camada          | Tecnologia                                  |
+| --------------- | ------------------------------------------- |
+| Frontend        | React, TypeScript, Vite, Tailwind CSS       |
+| Backend         | Node.js, Express, tRPC                      |
+| Persistência    | MySQL compatível com Drizzle ORM            |
+| IA              | Google Gemini API via `GeminiProvider`      |
+| Qualidade       | TypeScript strict, ESLint, Prettier, Vitest |
+| Desenvolvimento | Docker Compose                              |
 
 ## Arquitetura
 
@@ -56,7 +56,7 @@ DATABASE_URL=mysql://app:app@127.0.0.1:3306/ai_issue_analyzer
 WORKSPACE_USER_ID=1
 ```
 
-Suba o banco e execute a aplicação:
+O projeto já pode ser validado usando o banco conectado ao ambiente de desenvolvimento. Para uma execução local independente, suba uma instância compatível e execute:
 
 ```bash
 docker compose up -d
@@ -64,19 +64,19 @@ pnpm drizzle-kit migrate
 pnpm dev
 ```
 
-A interface ficará disponível no endereço local informado pelo servidor. Para uma instalação externa, somente `GEMINI_API_KEY` e `DATABASE_URL` são necessários para o recurso principal.
+A interface ficará disponível no endereço local informado pelo servidor. Em uma instalação externa, configure `GEMINI_API_KEY` e `DATABASE_URL`; o banco conectado do ambiente não é necessário para quem executar o projeto localmente.
 
 ## API
 
 As operações são expostas sob `/api/trpc` pelo adaptador tRPC.
 
-| Operação | Entrada | Resultado |
-|---|---|---|
-| `issues.list` | Nenhuma | Lista de issues do workspace |
-| `issues.get` | `{ id }` | Issue e histórico de análises |
-| `issues.create` | `{ title, description }` | Issue criada |
-| `issues.delete` | `{ id }` | Exclusão da issue e análises vinculadas |
-| `issues.analyze` | `{ id }` | Nova análise validada e persistida |
+| Operação         | Entrada                  | Resultado                               |
+| ---------------- | ------------------------ | --------------------------------------- |
+| `issues.list`    | Nenhuma                  | Lista de issues do workspace            |
+| `issues.get`     | `{ id }`                 | Issue e histórico de análises           |
+| `issues.create`  | `{ title, description }` | Issue criada                            |
+| `issues.delete`  | `{ id }`                 | Exclusão da issue e análises vinculadas |
+| `issues.analyze` | `{ id }`                 | Nova análise validada e persistida      |
 
 Payloads inválidos são rejeitados antes da persistência. Issues ausentes retornam `NOT_FOUND` no contrato tRPC.
 

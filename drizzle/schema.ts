@@ -24,7 +24,9 @@ export const issues = mysqlTable("issues", {
   userId: int("userId").notNull(),
   title: varchar("title", { length: 160 }).notNull(),
   description: text("description").notNull(),
-  status: mysqlEnum("status", ["open", "analyzed", "closed"]).default("open").notNull(),
+  status: mysqlEnum("status", ["open", "analyzed", "closed"])
+    .default("open")
+    .notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -33,8 +35,18 @@ export const analyses = mysqlTable("analyses", {
   id: int("id").autoincrement().primaryKey(),
   issueId: int("issueId").notNull(),
   category: varchar("category", { length: 80 }).notNull(),
-  priority: mysqlEnum("priority", ["low", "medium", "high", "critical"]).notNull(),
-  severity: mysqlEnum("severity", ["low", "medium", "high", "critical"]).notNull(),
+  priority: mysqlEnum("priority", [
+    "low",
+    "medium",
+    "high",
+    "critical",
+  ]).notNull(),
+  severity: mysqlEnum("severity", [
+    "low",
+    "medium",
+    "high",
+    "critical",
+  ]).notNull(),
   area: varchar("area", { length: 120 }).notNull(),
   summary: text("summary").notNull(),
   possibleCause: text("possibleCause").notNull(),

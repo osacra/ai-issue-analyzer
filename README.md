@@ -12,14 +12,14 @@ A aplicação permite criar, listar, consultar e excluir issues. Cada issue pode
 
 ## Stack
 
-| Camada | Tecnologia |
-|---|---|
-| Frontend | React, TypeScript, Vite, Tailwind CSS |
-| Backend | Node.js, Express, tRPC |
-| Persistência | MySQL compatível com Drizzle ORM |
-| IA | Google Gemini API via `GeminiProvider` |
-| Qualidade | TypeScript strict, ESLint, Prettier, Vitest |
-| Desenvolvimento | Docker Compose |
+| Camada          | Tecnologia                                  |
+| --------------- | ------------------------------------------- |
+| Frontend        | React, TypeScript, Vite, Tailwind CSS       |
+| Backend         | Node.js, Express, tRPC                      |
+| Persistência    | MySQL compatível com Drizzle ORM            |
+| IA              | Google Gemini API via `GeminiProvider`      |
+| Qualidade       | TypeScript strict, ESLint, Prettier, Vitest |
+| Desenvolvimento | Docker Compose                              |
 
 ## Arquitetura
 
@@ -70,13 +70,13 @@ A interface ficará disponível no endereço local informado pelo servidor. Em u
 
 As operações são expostas sob `/api/trpc` pelo adaptador tRPC.
 
-| Operação | Entrada | Resultado |
-|---|---|---|
-| `issues.list` | Nenhuma | Lista de issues do workspace |
-| `issues.get` | `{ id }` | Issue e histórico de análises |
-| `issues.create` | `{ title, description }` | Issue criada |
-| `issues.delete` | `{ id }` | Exclusão da issue e análises vinculadas |
-| `issues.analyze` | `{ id }` | Nova análise validada e persistida |
+| Operação         | Entrada                  | Resultado                               |
+| ---------------- | ------------------------ | --------------------------------------- |
+| `issues.list`    | Nenhuma                  | Lista de issues do workspace            |
+| `issues.get`     | `{ id }`                 | Issue e histórico de análises           |
+| `issues.create`  | `{ title, description }` | Issue criada                            |
+| `issues.delete`  | `{ id }`                 | Exclusão da issue e análises vinculadas |
+| `issues.analyze` | `{ id }`                 | Nova análise validada e persistida      |
 
 Payloads inválidos são rejeitados antes da persistência. Issues ausentes retornam `NOT_FOUND` no contrato tRPC.
 
